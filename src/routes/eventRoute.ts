@@ -11,6 +11,10 @@ router.get("/", async(req, res) => {
         const pageNo = parseInt(req.query.pageNo as string) || 1;
         const keyword = req.query.keyword as string ;
         const result = await service.getAllEventsWithOrganizerPagination(keyword, pageSize, pageNo);
+        if (result.events.length === 0) {
+            res.status(404).send("No events found");
+            return;
+        }
         res.set("X-Total-Count", result.count.toString());
         res.json(result.events);
     // if (req.query.category) {
