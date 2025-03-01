@@ -21,11 +21,12 @@ router.get("/", async(req, res) => {
         } catch (error) {
             if (pageNo < 1 || pageSize < 1) {
                 res.status(400).send("Invalid page number or page size");
-                return;
             } else {
                 res.status(500).send("Internal server error");
-                return;
             }
+            return;
+        } finally {
+            console.log(`Request is completed. with pageNo: ${pageNo} and pageSize: ${pageSize}`);
         }
     // if (req.query.category) {
     // const category = req.query.category;
