@@ -2,7 +2,7 @@ import type { Organizer } from "./organizer";
 import type {Participant } from "./participant";
 
 export interface Event {
-    id: number;
+    id?: number;
     category: string;
     title: string;
     description: string;
