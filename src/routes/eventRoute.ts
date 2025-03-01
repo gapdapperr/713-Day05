@@ -19,8 +19,13 @@ router.get("/", async(req, res) => {
         res.set("X-Total-Count", result.count.toString());
         res.json(result.events);
         } catch (error) {
-            res.status(500).send("Internal Server Error");
-            return;
+            if (pageNo < 1 || pageSize < 1) {
+                res.status(400).send("Invalid page number or page size");
+                return;
+            } else {
+                res.status(500).send("Internal server error");
+                return;
+            }
         }
     // if (req.query.category) {
     // const category = req.query.category;
