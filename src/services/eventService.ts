@@ -25,3 +25,4 @@ export async function getAllEventsWithOrganizerPagination(keyword: string,pageSi
 export function countEvent() {
   return repo.countEvent();
 }
+
