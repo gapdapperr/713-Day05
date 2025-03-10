@@ -1,7 +1,5 @@
-import { organizer } from './../../node_modules/.prisma/client/index.d';
 import { PrismaClient } from "@prisma/client";
 import type { Event, PageEvent } from "../models/event";
-import { title } from 'process';
 
 const prisma = new PrismaClient();
 

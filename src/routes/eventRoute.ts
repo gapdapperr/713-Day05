@@ -1,8 +1,6 @@
 import express, { Request, Response } from "express";
 import * as service from "../services/eventService";
 import type { Event } from "../models/event";
-import exp from "constants";
-import { parse } from "path";
 const router = express.Router();
 
 router.get("/", async(req, res) => {
