@@ -10,6 +10,9 @@ export function getAllParticipants() {
 export function getParticipantById(id: number) {
   return prisma.participant.findUnique({
     where: { id },
+    include: {
+      events: true,
+    },
   });
 }
 
@@ -25,10 +28,8 @@ export async function getAllParticipantPagination(keyword: string, pageSize: num
     where,
     skip: pageSize * (pageNo - 1),
     take: pageSize,
-    select: {
-      id: true,
-      name: true,
-      email: true,
+    include: {
+      events: true,
     },
   });
   const count = await prisma.participant.count({ where });
