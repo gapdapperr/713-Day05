@@ -1,5 +1,6 @@
 import { event } from './../../node_modules/.prisma/client/index.d';
 import { PrismaClient } from '@prisma/client';
+import bcrypt from 'bcryptjs';
 const prisma = new PrismaClient();
 
 export async function createEvents() {
@@ -116,6 +117,53 @@ export async function createEvents() {
   addOrganizer(responseEvents[4].id, camtOrg.id);
   addOrganizer(responseEvents[5].id, camtOrg.id);
   
+  const roleAdmin = await prisma.role.create({
+    data: {
+      name: 'ROLE_ADMIN'
+    }
+  })
+
+  const roleUser = await prisma.role.create({
+    data: {
+      name: 'ROLE_USER'
+    }
+  })
+
+  const numSaltAround = 10;
+  const user1 = await prisma.user.create({
+    data: {
+      username: 'user1@abc.com',
+      password: bcrypt.hashSync('password1', numSaltAround),
+      organizer: {
+        connect: {
+          id: chiangMaiOrg.id
+        }
+      },
+      roles: {
+        connect: [
+          { id: roleAdmin.id },
+          { id: roleUser.id }
+        ]
+      }
+    }
+  })
+
+  const user2 = await prisma.user.create({
+    data: {
+      username: 'user2@abc.com',
+      password: bcrypt.hashSync('password2', numSaltAround),
+      organizer: {
+        connect: {
+          id: cmuOrg.id
+        }
+      },
+      roles: {
+        connect: [
+          { id: roleUser.id }
+        ]
+      }
+    }
+  })
   
   
   console.log("Database has been initialized with events.");

@@ -3,6 +3,7 @@ import express, { Request, Response } from "express";
 import multer from 'multer';
 import dotenv from 'dotenv';
 import eventRoute from './routes/eventRoute';
+import authRoute from './routes/authRoute';
 import participantRoute from './routes/participantRoute';
 import cors from 'cors';
 dotenv.config();
@@ -19,6 +20,7 @@ const options: cors.CorsOptions = {
 app.use(cors(options));
 app.use('/events',eventRoute);
 app.use('/participants',participantRoute);
+app.use('/auth',authRoute);
 const port = process.env.PORT || 3000;
 
 
