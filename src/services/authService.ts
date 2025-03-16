@@ -1,4 +1,5 @@
 // import { AuthResponse } from '../models/authResponse'
+import type { RegisterRequest } from '../models/registerRequest'
 import * as authRepo from "../repository/authRepository";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
@@ -26,4 +27,8 @@ export async function getUserFromToken(token: string) {
   return await authRepo.findByUserId(decoded.userId);
 }
 
-
+export function registerUser(registerRequest: RegisterRequest){
+     const {organizerName, username, password} = registerRequest;
+     return authRepo.registerUser(organizerName,username,bcrypt.hashSync(password), ['ROLE_USER']);
+  }
+  
