@@ -20,7 +20,7 @@ const options: cors.CorsOptions = {
 app.use(cors(options));
 app.use('/events',eventRoute);
 app.use('/participants',participantRoute);
-app.use('/auth',authRoute);
+app.use('/api/v1/auth',authRoute);
 const port = process.env.PORT || 3000;
 
 
