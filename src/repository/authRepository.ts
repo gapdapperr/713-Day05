@@ -50,18 +50,27 @@ export async function registerUser(
         create: {
           name: organizerName,
         },
+      },
     },
-        },
-          
+
+    include: {
+      roles: true,
+      organizer: {
         include: {
-            roles: true,
-            organizer: {
-                include: {
-                    events: true,
-                },
-            },
-        },    
-});
+          events: true,
+        },
+      },
+    },
+  });
 }
 
-
+export async function updatePassword(userId: number, password: string) {
+  return prisma.user.update({
+    where: {
+      id: userId,
+    },
+    data: {
+      password: password,
+    },
+  });
+}
